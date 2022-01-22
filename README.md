@@ -1,6 +1,8 @@
 # Video Scripts
 Scripts to make working with large video files easier. Specifically VHS tape importing and chapter inserting.
 
+Does not work if ruby is not installed on your system. Still need to tweak how the docker ruby works. May have to dockerize ruby + ffmpeg together
+
 ## generate-mp4-chapter-metadata
 Given a normal text file with timestamps in it:
 
