@@ -6,7 +6,6 @@
 # create-clips [options] <video_file> <output_dir>
 
 require 'optparse'
-require 'shellwords'
 
 class ClipOptionErrors
   def initialize
@@ -101,12 +100,7 @@ class Clip
     @file = file
     @start_time = start_time
     @end_time = end_time
-    @description = if description
-      Shellwords.escape(description) 
-    else
-      Shellwords.escape("Clip #{start_time}-#{end_time}")
-    end
-    #@description = description&.tr('"', '')&.tr('/', '-')&.tr('\\', '-').tr('\''), '')
+    @description = description&.tr('"', '')&.tr('/', '\/')&.tr('\\', '-')&.tr('\'', '')
     @output_dir = nil
   end
 
@@ -130,7 +124,7 @@ class Clip
   end
 
   def command
-    "ffmpeg -i \"#{file}\" -ss #{start_time} #{end_time_option} -c copy -y \"#{output_file}\""
+    "ffmpeg -ss #{start_time} -i \"#{file}\" #{end_time_option} -codec copy -avoid_negative_ts make_zero -y \"#{output_file}\""
   end
 
   private
