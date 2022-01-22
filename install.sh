@@ -19,3 +19,5 @@ if ! echo $PATH | grep -q ~/bin; then
   export PATH=~/bin:$PATH
 fi
 
+echo "Done installing!"
+echo -e "New commands:\n  generate-mp4-chapter-metadata - used to create FFMETADATAFILE\n  set-mp4-chapter-metadata - uses FFMETADATAFILE to add chapters to mp4"
