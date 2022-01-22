@@ -5,7 +5,6 @@
 #== Usage:
 # create-clips [options] <video_file> <output_dir>
 
-
 require 'optparse'
 
 class ClipOptionErrors
