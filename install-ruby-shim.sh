@@ -15,7 +15,7 @@ if ! command -v ruby &> /dev/null; then
     echo "ruby docker image found, using it"
   fi
 
-  echo "docker run -i --rm -v "$PWD:$PWD" -w "$PWD" ruby:$VERSION" > /usr/local/bin/ruby
+  echo "docker run -it --rm -v "$PWD:$PWD" -w "$PWD" ruby:$VERSION" > /usr/local/bin/ruby
   chmod +x /usr/local/bin/ruby
 else
   echo "$(ruby -v) found, using it"
