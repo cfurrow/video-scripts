@@ -32,7 +32,7 @@ class ClipOptionErrors
 end
 
 class ClipOptions
-  attr_accessor :input_file, :output_dir, :timestamp_file
+  attr_accessor :input_file, :output_dir, :timestamp_file, :dry_run
 
   attr_accessor :errors
 
@@ -122,6 +122,10 @@ class Clip
     system(command)
   end
 
+  def command
+    "ffmpeg -i \"#{file}\" -ss #{start_time} #{end_time_option} -c copy -y \"#{output_file}\""
+  end
+
   private
 
   def input_filename
@@ -136,10 +140,6 @@ class Clip
     return "" if end_time.nil?
     
     "-to #{end_time}"
-  end
-
-  def command
-    "ffmpeg -i \"#{file}\" -ss #{start_time} #{end_time_option} -c copy -y \"#{output_file}\""
   end
 end
 
@@ -156,6 +156,10 @@ OptionParser.new do |opts|
   opts.on("-fPATH", "--from_file=PATH", "Create clips from timestamps file") do |f|
     options.timestamp_file = f
   end
+
+  opts.on("-d", "--dry_run", "Dry run, don't actually create clips") do
+    options.dry_run = true
+  end
 end.parse!
 
 options.input_file = ARGV[0]
@@ -166,8 +170,20 @@ unless options.valid?
   exit 1
 end
 
+# TODO: current problem is in docker env. If ruby is in a container, and ffmpeg in another container, this won't work.
 clips = TimestampFile.new(options.timestamp_file).parse!
-clips.each do |clip|
+clips.map do |clip|
   clip.file = options.input_file
-  clip.clip!(options.output_dir)
 end
+
+if options.dry_run
+  clips.each do |clip|
+    puts clip.command
+  end
+else
+  clips.each do |clip|
+    puts clip.clip!(options.output_dir)
+  end
+end
+
+
