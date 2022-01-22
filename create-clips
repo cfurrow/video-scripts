@@ -101,6 +101,7 @@ class Clip
     @start_time = start_time
     @end_time = end_time
     @description = description
+    @output_dir = nil
   end
 
   def file=(file_path)
@@ -116,7 +117,8 @@ class Clip
   end
 
   def clip!(output_directory)
-    puts "Clipping #{output_directory}/#{output_file}..."
+    @output_dir = output_directory
+    puts "Clipping #{output_file}..."
     puts command
     system(command)
   end
@@ -132,7 +134,8 @@ class Clip
   end
 
   def output_file
-    "#{input_filename}.#{description}.clip.mp4"
+    @output_dir = "#{@output_dir}/" if @output_dir && !@output_dir.end_with?("/")
+    "#{@output_dir}#{input_filename}.#{description}.clip.mp4"
   end
 
   def end_time_option
