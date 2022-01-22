@@ -5,9 +5,6 @@
 #== Usage:
 # create-clips [options] <video_file> <output_dir>
 
-# == Options
-# -h, --help: Display this help message.
-# -f, --from_file: Create clips from timestamps file.
 
 require 'optparse'
 
@@ -58,6 +55,56 @@ class ClipOptions
   end
 end
 
+class TimestampFile
+  TIMESTAMP_LINE = /(?<time>\d{1,2}:\d{2}:\d{2})\s+(?<description>.*?)$/
+
+  attr_reader :clips, :path
+
+  def initialize(path)
+    @path = path
+    @clips = []
+  end
+
+  def parse!
+    @clips = []
+    File.open(path, "r") do |file|
+      file.each_line do |line|
+        @clips << create_clip_from_line(line)
+      end
+    end
+    @clips
+  end
+
+  def create_clip_from_line(line)
+    line_details = line.match(TIMESTAMP_LINE)
+
+    return if line_details.nil?
+    time = line_details[:time]
+    description = line_details[:description]
+
+    Clip.new(@path, time, nil, description)
+  end
+end
+
+class Clip
+  attr_reader :file, :start_time, :end_time, :description
+  
+  def initialize(file, start_time, end_time, description)
+    @file = file
+    @start_time = start_time
+    @end_time = end_time
+    @description = description
+  end
+
+  def command
+    "ffmpeg -i \"#{file}\" -ss #{start_time} -to #{end_time} -c copy \"#{file}.#{description}.clip.mp4\""
+  end
+
+  def to_s
+    "#{start_time} - #{end_time} #{description}"
+  end
+end
+
 options = ClipOptions.new
 
 OptionParser.new do |opts|
@@ -78,4 +125,7 @@ options.output_dir = ARGV[1]
 
 unless options.valid?
   puts options.errors
+  exit 1
 end
+
+puts TimestampFile.new(options.timestamp_file).parse!
