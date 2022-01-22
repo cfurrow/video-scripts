@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Use ruby if already installed, or fetch Ruby 3.0.3 docker image and setup in ~/bin
+# Use ruby if already installed, or fetch Ruby 3.0.3 docker image and setup in /usr/local/bin/
 VERSION=3.0.3
 echo "Looking for ruby...."
 
@@ -15,8 +15,8 @@ if ! command -v ruby &> /dev/null; then
     echo "ruby docker image found, using it"
   fi
 
-  echo "docker run -i --rm -v "$PWD:$PWD" -w "$PWD" ruby:$VERSION" > ~/bin/ruby
-  chmod +x ~/bin/ruby
+  echo "docker run -i --rm -v "$PWD:$PWD" -w "$PWD" ruby:$VERSION" > /usr/local/bin/ruby
+  chmod +x /usr/local/bin/ruby
 else
   echo "$(ruby -v) found, using it"
 fi

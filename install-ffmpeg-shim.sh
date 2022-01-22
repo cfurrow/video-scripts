@@ -15,8 +15,8 @@ if ! command -v ffmpeg &> /dev/null; then
     echo "ffmpeg docker image found, using it"
   fi
 
-  echo 'docker run -i --rm -v "$PWD:$PWD" -w "$PWD" mwader/static-ffmpeg:4.4.1' > ~/bin/ffmpeg
-  chmod +x ~/bin/ffmpeg
+  echo 'docker run -i --rm -v "$PWD:$PWD" -w "$PWD" mwader/static-ffmpeg:4.4.1' > /usr/local/bin/ffmpeg
+  chmod +x /usr/local/bin/ffmpeg
 else
   echo "ffmpeg found, using it"
 fi
