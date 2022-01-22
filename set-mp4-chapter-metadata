@@ -1,0 +1,31 @@
+#!/bin/bash
+# Uses the FFMETADATAFILE metadata file in the current directory to set the mp4 chapters of the INPUT file.
+# 
+# You must have an FFMETADATAFILE in your current directory.
+#
+# Usage:
+#  set-mp4-chapter-metadata INPUT.mp4
+# 
+
+INPUT=$1
+filename=$(basename -- "$INPUT")
+extension="${filename##*.}"
+filename="${filename%.*}"
+OUTPUT="$filename-chapters.$extension"
+
+if [ ! -f INPUT ]; then
+  echo "$INPUT not found in current directory."
+  exit 1
+fi
+
+# Check if FFMETADATAFILE exists
+if [ ! -f FFMETADATAFILE ]; then
+  echo "FFMETADATAFILE not found in current directory."
+  exit 1
+fi
+
+echo "Processing chapters....."
+echo "Input file: $INPUT"
+echo "Output file: $OUTPUT"
+
+ffmpeg -i "$INPUT" -i FFMETADATAFILE -map_metadata 1 -codec copy "$OUTPUT"

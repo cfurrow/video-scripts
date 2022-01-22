@@ -1,3 +1,5 @@
+#!/usr/bin/env python3
+
 # Generate FFMETADATAFILE to insert chapters into an MP4 file
 #
 # @see https://ffmpeg.org/ffmpeg-formats.html (search for "FFMETADATA")
@@ -7,8 +9,9 @@
 # 00:03:44 Some other title
 # 01:20:29 Another thing
 # 01:39:41 The End
-# == Examples
-# python3 generate_chapters.py ChapterDetails.txt
+#
+# == Usage:
+# generate-mp4-chapter-metadata ChapterDetails.txt
 # 
 # == Retrieving current Chapter Information
 # ffmpeg -i INPUT -f ffmetadata FFMETADATAFILE
