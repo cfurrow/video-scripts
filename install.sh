@@ -12,18 +12,18 @@ echo "ffmpeg command: $ffmpeg_command"
 
 # copy set-chapter-metadata.sh to /usr/local/bin directory
 echo "Installing set-mp4-chapter-metadata to /usr/local/bin ..."
-cp set-mp4-chapter-metadata /usr/local/bin/
+cp set-mp4-chapter-metadata /usr/local/bin/set-mp4-chapter-metadata
 chmod +x /usr/local/bin/set-mp4-chapter-metadata
 
 echo "Installing generate-mp4-chapter-metadata to /usr/local/bin ..."
-cp generate-mp4-chapter-metadata /usr/local/bin/
+cp generate-mp4-chapter-metadata /usr/local/bin/generate-mp4-chapter-metadata
 chmod +x /usr/local/bin/generate-mp4-chapter-metadata
 
-echo "Installing create-clips to ~/bin ..."
-cp create-clips /usr/local/bin/
+echo "Installing create-clips to /usr/local/bin ..."
+cp create-clips /usr/local/bin/create-clips
 chmod +x /usr/local/bin/create-clips
 
-# add ~/bin to PATH if it does not exist
+# add /usr/local/bin to PATH if it does not exist
 if ! echo $PATH | grep -q /usr/local/bin; then
   echo "PATH does not contain /usr/local/bin, adding it"
   export PATH=/usr/local/bin:$PATH
