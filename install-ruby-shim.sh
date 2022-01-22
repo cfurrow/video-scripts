@@ -15,8 +15,7 @@ if ! command -v ruby &> /dev/null; then
     echo "ruby docker image found, using it"
   fi
 
-  # TODO: this does not work. it launches IRB, and not a ruby command...
-  echo "docker run -it --rm  --name ruby-is-running -v "$PWD:$PWD" -w "$PWD" ruby:$VERSION ruby" > /usr/local/bin/ruby
+  echo "docker run -it --rm  --name ruby-is-running -v "\$PWD:\$PWD" -w "\$PWD" ruby:$VERSION ruby \$@" > /usr/local/bin/ruby
   chmod +x /usr/local/bin/ruby
 else
   echo "$(ruby -v) found, using it"
