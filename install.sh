@@ -17,6 +17,10 @@ echo "Installing generate-mp4-chapter-metadata to ~/bin ..."
 cp generate-mp4-chapter-metadata ~/bin
 chmod +x ~/bin/generate-mp4-chapter-metadata
 
+echo "Installing create-clips to ~/bin ..."
+cp create-clips ~/bin
+chmod +x ~/bin/create-clips
+
 # add ~/bin to PATH if it does not exist
 if ! echo $PATH | grep -q ~/bin; then
   echo "PATH does not contain ~/bin, adding it"
@@ -24,4 +28,4 @@ if ! echo $PATH | grep -q ~/bin; then
 fi
 
 echo "Done installing!"
-echo -e "New commands:\n  generate-mp4-chapter-metadata - used to create FFMETADATAFILE\n  set-mp4-chapter-metadata - uses FFMETADATAFILE to add chapters to mp4"
+echo -e "New commands:\n  generate-mp4-chapter-metadata - used to create FFMETADATAFILE\n  set-mp4-chapter-metadata - uses FFMETADATAFILE to add chapters to mp4\n  create-clips - Create clips from an mp4 file"
