@@ -1,5 +1,7 @@
 #!/bin/bash
 
+mkdir -p ~/bin
+
 ./install-ruby-shim.sh
 ruby_command=$(command -v ruby)
 echo "ruby command: $ruby_command"
