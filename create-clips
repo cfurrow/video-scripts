@@ -6,6 +6,7 @@
 # create-clips [options] <video_file> <output_dir>
 
 require 'optparse'
+require 'shellwords'
 
 class ClipOptionErrors
   def initialize
@@ -100,7 +101,12 @@ class Clip
     @file = file
     @start_time = start_time
     @end_time = end_time
-    @description = description&.tr('"', '')&.tr('/', '-')&.tr('\\', '-').tr('\''), '')
+    @description = if description
+      Shellwords.escape(description) 
+    else
+      Shellwords.escape("Clip #{start_time}-#{end_time}")
+    end
+    #@description = description&.tr('"', '')&.tr('/', '-')&.tr('\\', '-').tr('\''), '')
     @output_dir = nil
   end
 
