@@ -100,7 +100,7 @@ class Clip
     @file = file
     @start_time = start_time
     @end_time = end_time
-    @description = description
+    @description = description&.tr('"', '')&.tr('/', '-')&.tr('\\', '-').tr('\''), '')
     @output_dir = nil
   end
 
