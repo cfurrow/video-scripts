@@ -72,6 +72,14 @@ class TimestampFile
         @clips << create_clip_from_line(line)
       end
     end
+
+    # We need to populate the end_time of each clip to the start time of the next clip
+    @clips.each_with_index do |clip, index|
+      if index < @clips.length - 1
+        clip.end_time = @clips[index + 1].start_time
+      end
+    end
+
     @clips
   end
 
@@ -82,7 +90,7 @@ class TimestampFile
     time = line_details[:time]
     description = line_details[:description]
 
-    Clip.new(@path, time, nil, description)
+    Clip.new(nil, time, nil, description)
   end
 end
 
@@ -96,12 +104,42 @@ class Clip
     @description = description
   end
 
-  def command
-    "ffmpeg -i \"#{file}\" -ss #{start_time} -to #{end_time} -c copy \"#{file}.#{description}.clip.mp4\""
+  def file=(file_path)
+    @file = file_path
+  end
+
+  def end_time=(new_end_time)
+    @end_time = new_end_time
   end
 
   def to_s
     "#{start_time} - #{end_time} #{description}"
+  end
+
+  def clip!(output_directory)
+    puts "Clipping #{output_directory}/#{output_file}..."
+    puts command
+    system(command)
+  end
+
+  private
+
+  def input_filename
+    File.basename(file, '.*')  # remove extension
+  end
+
+  def output_file
+    "#{input_filename}.#{description}.clip.mp4"
+  end
+
+  def end_time_option
+    return "" if end_time.nil?
+    
+    "-to #{end_time}"
+  end
+
+  def command
+    "ffmpeg -i \"#{file}\" -ss #{start_time} #{end_time_option} -c copy -y \"#{output_file}\""
   end
 end
 
@@ -128,4 +166,8 @@ unless options.valid?
   exit 1
 end
 
-puts TimestampFile.new(options.timestamp_file).parse!
+clips = TimestampFile.new(options.timestamp_file).parse!
+clips.each do |clip|
+  clip.file = options.input_file
+  clip.clip!(options.output_dir)
+end
