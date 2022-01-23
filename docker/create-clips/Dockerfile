@@ -1,6 +1,6 @@
 FROM mwader/static-ffmpeg:4.4.1
 
-FROM alpine:3.14
+FROM ruby:3.0.3
 
 WORKDIR /
 
