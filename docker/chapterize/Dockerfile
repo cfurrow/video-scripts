@@ -1,4 +1,4 @@
-FROM FROM mwader/static-ffmpeg:4.4.1
+FROM mwader/static-ffmpeg:4.4.1
 
 FROM python:3.10.2-alpine
 
