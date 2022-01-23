@@ -6,18 +6,17 @@ mkdir -p /usr/local/bin
 ffmpeg_command=$(command -v ffmpeg)
 echo "ffmpeg command: $ffmpeg_command"
 
-# copy set-chapter-metadata.sh to /usr/local/bin directory
-echo "Installing set-mp4-chapter-metadata to /usr/local/bin ..."
-cp set-mp4-chapter-metadata /usr/local/bin/set-mp4-chapter-metadata
-chmod +x /usr/local/bin/set-mp4-chapter-metadata
+function install_script() {
+  echo "Installing $1 to /usr/local/bin ..."
+  # copy script to /usr/local/bin
+  cp "$1" /usr/local/bin
+  chmod +x /usr/local/bin/"$(basename "$1")"
+}
 
-echo "Installing generate-mp4-chapter-metadata to /usr/local/bin ..."
-cp generate-mp4-chapter-metadata /usr/local/bin/generate-mp4-chapter-metadata
-chmod +x /usr/local/bin/generate-mp4-chapter-metadata
-
-echo "Installing create-clips to /usr/local/bin ..."
-cp create-clips /usr/local/bin/create-clips
-chmod +x /usr/local/bin/create-clips
+install_script 'set-mp4-chapter-metadata'
+install_script 'generate-mp4-chapter-metadata'
+install_script 'create-clips'
+install_script 'do-it-all'
 
 # add /usr/local/bin to PATH if it does not exist
 if ! echo $PATH | grep -q /usr/local/bin; then
