@@ -28,7 +28,7 @@ options.timestamp_file = ARGV[0]
 
 timestamp_file = VideoScripts::TimestampFile.new(options.timestamp_file)
 clips = timestamp_file.parse!
-puts clips.map(&:to_s)
+
 options.title = timestamp_file.title
 
 metadata_builder = VideoScripts::FfmetadataBuilder.new(clips, options.title)
