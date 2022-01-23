@@ -2,8 +2,8 @@
 
 mkdir ./build
 
-cp -r ../../lib ./build/lib
-cp ../../generate-mp4-chapter-metadata build/
-cp ../../set-mp4-chapter-metadata build/
+# get latest version of video_scripts gem
+latest_gem=`ls -t ../../pkg/video_scripts* | head -1`
+cp "$latest_gem" ./build/video_scripts.gem
 
 docker build -t chapterize .

@@ -6,8 +6,7 @@ WORKDIR /
 
 COPY --from=0 /ffmpeg /usr/bin/ffmpeg
 
-COPY ./create-clips /usr/bin/create-clips
+COPY ./build/video_scripts.gem /gems/video_scripts.gem
+RUN gem install /gems/video_scripts.gem
 
-RUN chmod +x /usr/bin/create-clips
-
-ENTRYPOINT ["/usr/bin/create-clips"]
+ENTRYPOINT ["create-clips"]

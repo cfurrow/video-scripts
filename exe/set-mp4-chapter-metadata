@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/usr/env ruby
 # Uses the FFMETADATAFILE metadata file in the current directory to set the mp4 chapters of the INPUT file.
 # 
 # You must have an FFMETADATAFILE in your current directory.
@@ -7,27 +7,28 @@
 #  set-mp4-chapter-metadata INPUT.mp4
 # 
 
-INPUT="$1"
-# get directory of $INPUT
-INPUT_DIR=$(dirname "$INPUT")
-filename=$(basename -- "$INPUT")
-extension="${filename##*.}"
-filename="${filename%.*}"
-OUTPUT="$INPUT_DIR/$filename-chapters.$extension"
+# Convert to ruby???? Does not work as a gem exec
+# Or, write a ruby script that runs this shell script
+# @see https://stackoverflow.com/questions/23701726/deploy-a-shell-script-with-ruby-gem-and-install-in-bin-directory
 
-if [ ! -f "$INPUT" ]; then
-  echo "$INPUT not found in current directory."
+input_file = ARGV[0]
+input_dir  = File.dirname(input_file)
+filename   = File.basename(input_file, ".*")
+extension  = File.extname(input_file)
+output_file = File.join(input_dir, filename + "-chapterized" + extension)
+
+if !File.exist?(input_file)
+  puts "Input file does not exist: #{input_file}"
   exit 1
-fi
+end
 
-# Check if FFMETADATAFILE exists
-if [ ! -f FFMETADATAFILE ]; then
-  echo "FFMETADATAFILE not found in current directory."
+if !File.exist?("FFMETADATAFILE")
+  puts "FFMETADATAFILE does not exist in current directory"
   exit 1
-fi
+end
 
-echo "Processing chapters....."
-echo "Input file: $INPUT"
-echo "Output file: $OUTPUT"
+puts "Processing chapters....."
+puts "Input file: #{input_file}"
+puts "Output file: #{output_file}"
 
-ffmpeg -i "$INPUT" -i FFMETADATAFILE -map_metadata 1 -codec copy "$OUTPUT"
+system("ffmpeg -i \"#{input_file}\" -i FFMETADATAFILE -map_metadata 1 -codec copy \"#{output_file}\"")
