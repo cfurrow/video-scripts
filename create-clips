@@ -10,8 +10,12 @@ require_relative 'lib/video_scripts'
 options = VideoScripts::ClipOptions.new
 options.parse!
 
-clips = VideoScripts::TimestampFile.new(options.timestamp_file).parse!
+timestamp_file = VideoScripts::TimestampFile.new(options.timestamp_file)
+clips = timestamp_file.parse!
+
+
 clips.map do |clip|
+  clip.title = timestamp_file.title
   clip.file = options.input_file
   clip.output_dir = options.output_dir
 end
