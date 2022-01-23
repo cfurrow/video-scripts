@@ -112,19 +112,26 @@ class Clip
     @end_time = new_end_time
   end
 
+  def output_dir=(new_output_dir)
+    @output_dir = new_output_dir
+  end
+
   def to_s
     "#{start_time} - #{end_time} #{description}"
   end
 
-  def clip!(output_directory)
-    @output_dir = output_directory
+  def clip!
     puts "Clipping #{output_file}..."
     puts command
     system(command)
   end
 
   def command
-    "ffmpeg -ss #{start_time} -i \"#{file}\" #{end_time_option} -codec copy -avoid_negative_ts make_zero -y \"#{output_file}\""
+    # This is complicated.
+    # Using -codec copy seems to be fast, but some videos start with 3+seconds of black.
+    # To fix that, the suggestion is to not use `-codec copy` but to simply re-encode every video.
+    # Or, try to use `-codec copy` plus `-avoid_negative_ts make_zero` which may make the videos longer... but it also included waaaay more video when I tested it.
+    "ffmpeg -i \"#{file}\" -ss #{start_time} #{end_time_option} -map_chapters -1 -avoid_negative_ts 1 -y \"#{output_file}\""
   end
 
   private
@@ -172,10 +179,10 @@ unless options.valid?
   exit 1
 end
 
-# TODO: current problem is in docker env. If ruby is in a container, and ffmpeg in another container, this won't work.
 clips = TimestampFile.new(options.timestamp_file).parse!
 clips.map do |clip|
   clip.file = options.input_file
+  clip.output_dir = options.output_dir
 end
 
 if options.dry_run
@@ -184,7 +191,7 @@ if options.dry_run
   end
 else
   clips.each do |clip|
-    puts clip.clip!(options.output_dir)
+    puts clip.clip!
   end
 end
 
