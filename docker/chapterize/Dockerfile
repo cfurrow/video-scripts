@@ -1,6 +1,6 @@
 FROM mwader/static-ffmpeg:4.4.1
 
-FROM python:3.10.2-alpine
+FROM ruby:3.0.3
 
 COPY --from=0 /ffmpeg /usr/local/bin/ffmpeg
 COPY ./generate-mp4-chapter-metadata /usr/local/bin/generate-mp4-chapter-metadata
