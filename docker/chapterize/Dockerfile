@@ -10,4 +10,4 @@ COPY ./entrypoint.sh /entrypoint.sh
 
 WORKDIR /
 
-ENTRYPOINT [ "entrypoint.sh" ]
+ENTRYPOINT [ "/entrypoint.sh" ]
