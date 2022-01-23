@@ -1,0 +1,6 @@
+#!/bin/sh
+
+TIMESTAMPS_FILE="$1"
+INPUT_FILE="$2"
+
+docker run -it --rm -v "$PWD/VHS:/VHS" -v "$PWD/Clips:/Clips" create-clips -f "$TIMESTAMPS_FILE" "$INPUT_FILE" Clips/
