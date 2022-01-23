@@ -6,7 +6,7 @@ WORKDIR /
 
 COPY --from=0 /ffmpeg /usr/bin/ffmpeg
 
-COPY ../../create-clips /usr/bin/create-clips
+COPY ./create-clips /usr/bin/create-clips
 
 RUN chmod +x /usr/bin/create-clips
 
