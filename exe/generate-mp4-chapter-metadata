@@ -18,7 +18,7 @@
 # == Inserting new Chapter Information
 # ffmpeg -i INPUT -i FFMETADATAFILE -map_metadata 1 -codec copy OUTPUT
 
-require_relative 'lib/video_scripts'
+require 'video_scripts'
 
 Options = Struct.new(:title, :timestamp_file)
 

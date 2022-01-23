@@ -3,7 +3,7 @@
 require_relative "lib/video_scripts/version"
 
 Gem::Specification.new do |spec|
-  spec.name = "video-scripts"
+  spec.name = "video_scripts"
   spec.version = VideoScripts::VERSION
   spec.authors = ["Carl Furrow"]
   spec.email = ["hello@carlfurrow.com"]

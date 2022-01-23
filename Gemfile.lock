@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    video-scripts (0.0.1)
+    video_scripts (0.0.1)
 
 GEM
   remote: https://rubygems.org/
@@ -13,7 +13,7 @@ PLATFORMS
 
 DEPENDENCIES
   rake (~> 13.0)
-  video-scripts!
+  video_scripts!
 
 BUNDLED WITH
    2.2.33

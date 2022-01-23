@@ -2,7 +2,7 @@
 
 source "https://rubygems.org"
 
-# Specify your gem's dependencies in video-scripts.gemspec
+# Specify your gem's dependencies in video_scripts.gemspec
 gemspec
 
 gem "rake", "~> 13.0"
