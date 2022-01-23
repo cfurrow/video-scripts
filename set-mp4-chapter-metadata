@@ -8,10 +8,12 @@
 # 
 
 INPUT="$1"
+# get directory of $INPUT
+INPUT_DIR=$(dirname "$INPUT")
 filename=$(basename -- "$INPUT")
 extension="${filename##*.}"
 filename="${filename%.*}"
-OUTPUT="$filename-chapters.$extension"
+OUTPUT="$INPUT_DIR/$filename-chapters.$extension"
 
 if [ ! -f "$INPUT" ]; then
   echo "$INPUT not found in current directory."
