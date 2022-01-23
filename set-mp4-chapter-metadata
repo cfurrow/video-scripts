@@ -7,13 +7,13 @@
 #  set-mp4-chapter-metadata INPUT.mp4
 # 
 
-INPUT=$1
+INPUT="$1"
 filename=$(basename -- "$INPUT")
 extension="${filename##*.}"
 filename="${filename%.*}"
 OUTPUT="$filename-chapters.$extension"
 
-if [ ! -f INPUT ]; then
+if [ ! -f "$INPUT" ]; then
   echo "$INPUT not found in current directory."
   exit 1
 fi
