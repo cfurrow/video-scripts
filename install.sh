@@ -2,10 +2,6 @@
 
 mkdir -p /usr/local/bin
 
-./install-ruby-shim.sh
-ruby_command=$(command -v ruby)
-echo "ruby command: $ruby_command"
-
 ./install-ffmpeg-shim.sh
 ffmpeg_command=$(command -v ffmpeg)
 echo "ffmpeg command: $ffmpeg_command"
