@@ -1,0 +1,19 @@
+PATH
+  remote: .
+  specs:
+    video_scripts (0.0.1)
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    rake (13.0.6)
+
+PLATFORMS
+  x86_64-darwin-21
+
+DEPENDENCIES
+  rake (~> 13.0)
+  video_scripts!
+
+BUNDLED WITH
+   2.2.33

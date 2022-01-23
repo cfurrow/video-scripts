@@ -5,7 +5,7 @@
 #== Usage:
 # create-clips [options] <video_file> <output_dir>
 
-require_relative 'lib/video_scripts'
+require 'video_scripts'
 
 options = VideoScripts::ClipOptions.new
 options.parse!
