@@ -54,8 +54,8 @@ module VideoScripts
       self.input_file = ARGV[0]
       self.output_dir = ARGV[1]
       
-      unless options.valid?
-        puts options.errors
+      unless self.valid?
+        puts self.errors
         exit 1
       end
     end
