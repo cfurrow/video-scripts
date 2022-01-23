@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 # Uses the FFMETADATAFILE metadata file in the current directory to set the mp4 chapters of the INPUT file.
 # 
 # You must have an FFMETADATAFILE in your current directory.
