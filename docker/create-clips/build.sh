@@ -7,3 +7,5 @@ latest_gem=`ls -t ../../pkg/video_scripts* | head -1`
 cp "$latest_gem" ./build/video_scripts.gem
 
 docker build -t create-clips .
+
+rm -rf ./build
