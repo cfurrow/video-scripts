@@ -1,6 +1,16 @@
 # Video Scripts
 Scripts to make working with large video files easier. Specifically VHS tape importing and chapter inserting.
 
+## Install
+
+```
+git clone https://github.com/cfurrow/video-scripts
+cd video-scripts
+
+rake install
+```
+
+
 ## Set chapters in mp4
 
 ### With docker (once `chapterize` is built)
