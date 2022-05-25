@@ -29,5 +29,3 @@ else
     puts clip.clip!
   end
 end
-
-
