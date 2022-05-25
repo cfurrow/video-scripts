@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 # Generate FFMETADATAFILE to insert chapters into an MP4 file
 #
+# @see https://ikyle.me/blog/2020/add-mp4-chapters-ffmpeg
 # @see https://ffmpeg.org/ffmpeg-formats.html (search for "FFMETADATA")
 #
 # == Input file format:
