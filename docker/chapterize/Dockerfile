@@ -1,6 +1,6 @@
-FROM mwader/static-ffmpeg:4.4.1
+FROM mwader/static-ffmpeg:5.1.2
 
-FROM ruby:3.0.3
+FROM ruby:3.1.2
 
 COPY --from=0 /ffmpeg /usr/local/bin/ffmpeg
 
