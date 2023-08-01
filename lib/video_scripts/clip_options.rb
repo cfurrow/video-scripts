@@ -53,25 +53,25 @@ module VideoScripts
 
       self.input_file = ARGV[0]
       self.output_dir = ARGV[1]
+      self.timestamp_file = "#{input_file}.txt" if timestamp_file.nil?
 
-      unless self.valid?
-        puts self.errors
-        exit 1
-      end
+      return if valid?
+
+      # send errors to stderr
+      warn errors
+      exit 1
     end
 
     def valid?
-      errors.add(:input_file, "Input file is required.") if input_file.nil?
+      errors.add(:input_file, 'Input file is required.') if input_file.nil?
       errors.add(:output_dir, "Output file is required.") if output_dir.nil?
       errors.add(:input_file, "\"#{input_file}\" does not exist!") unless File.exist?(input_file || "")
       errors.add(:output_dir, "\"#{output_dir}\" does not exist!") unless Dir.exist?(output_dir || "")
 
-      # TODO: If timestamp_file is not specified, try to use the input_file name with a "txt" extension, then check if it exists
-
       errors.add(:timestamp_file, "Timestamp file is required.") if timestamp_file.nil?
       errors.add(:timestamp_file, "#{timestamp_file} does not exist!") unless File.exist?(timestamp_file)
-      
-      !errors.any?
+
+      errors.none?
     end
   end
 end
