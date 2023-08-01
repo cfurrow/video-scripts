@@ -18,11 +18,11 @@ module VideoScripts
     end
 
     def to_s
-      output = ''
+      output = []
       @errors.each do |field, messages|
-        output << "Error in #{field}: #{messages.join(', ')}\n"
+        output << "Error in #{field}: #{messages.join(', ')}"
       end
-      output
+      output.join('\n')
     end
   end
 
@@ -71,7 +71,7 @@ module VideoScripts
       errors.add(:timestamp_file, 'Timestamp file is required.') if timestamp_file.nil?
       errors.add(:timestamp_file, "#{timestamp_file} does not exist!") unless File.exist?(timestamp_file)
 
-      errors.none?
+      !errors.any?
     end
   end
 end
