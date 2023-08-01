@@ -36,24 +36,24 @@ module VideoScripts
     def parse!
       OptionParser.new do |opts|
         opts.banner = "Usage: create-clips [options] <video_file> <output_dir>"
-      
+
         opts.on("-h", "--help", "Display this help message.") do
           puts opts
           exit
         end
-      
+
         opts.on("-fPATH", "--from_file=PATH", "Create clips from timestamps file") do |f|
           self.timestamp_file = f
         end
-      
+
         opts.on("-d", "--dry_run", "Dry run, don't actually create clips") do
           self.dry_run = true
         end
       end.parse!
-      
+
       self.input_file = ARGV[0]
       self.output_dir = ARGV[1]
-      
+
       unless self.valid?
         puts self.errors
         exit 1

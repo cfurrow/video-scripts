@@ -13,7 +13,6 @@ options.parse!
 timestamp_file = VideoScripts::TimestampFile.new(options.timestamp_file)
 clips = timestamp_file.parse!
 
-
 clips.map do |clip|
   clip.title = timestamp_file.title
   clip.file = options.input_file
