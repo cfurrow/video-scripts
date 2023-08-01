@@ -1,11 +1,13 @@
 #!/bin/usr/env ruby
+# frozen_string_literal: true
+
 # Uses the FFMETADATAFILE metadata file in the current directory to set the mp4 chapters of the INPUT file.
-# 
+#
 # You must have an FFMETADATAFILE in your current directory.
 #
 # Usage:
 #  set-mp4-chapter-metadata INPUT.mp4
-# 
+#
 
 # Convert to ruby???? Does not work as a gem exec
 # Or, write a ruby script that runs this shell script
@@ -13,21 +15,21 @@
 
 input_file = ARGV[0]
 input_dir  = File.dirname(input_file)
-filename   = File.basename(input_file, ".*")
+filename   = File.basename(input_file, '.*')
 extension  = File.extname(input_file)
-output_file = File.join(input_dir, filename + "-chapterized" + extension)
+output_file = File.join(input_dir, "#{filename}-chapterized#{extension}")
 
-if !File.exist?(input_file)
+unless File.exist?(input_file)
   puts "Input file does not exist: #{input_file}"
   exit 1
 end
 
-if !File.exist?("FFMETADATAFILE")
-  puts "FFMETADATAFILE does not exist in current directory"
+unless File.exist?('FFMETADATAFILE')
+  puts 'FFMETADATAFILE does not exist in current directory'
   exit 1
 end
 
-puts "Processing chapters....."
+puts 'Processing chapters.....'
 puts "Input file: #{input_file}"
 puts "Output file: #{output_file}"
 

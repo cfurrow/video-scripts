@@ -1,4 +1,6 @@
 #!/usr/bin/env ruby
+# frozen_string_literal: true
+
 # Generate FFMETADATAFILE to insert chapters into an MP4 file
 #
 # @see https://ikyle.me/blog/2020/add-mp4-chapters-ffmpeg
@@ -12,7 +14,7 @@
 #
 # == Usage:
 # generate-mp4-chapter-metadata ChapterDetails.txt
-# 
+#
 # == Retrieving current Chapter Information
 # ffmpeg -i INPUT -f ffmetadata FFMETADATAFILE
 #
@@ -24,7 +26,7 @@ require 'video_scripts'
 Options = Struct.new(:title, :timestamp_file)
 
 options = Options.new
-options.title = ""
+options.title = ''
 options.timestamp_file = ARGV[0]
 
 timestamp_file = VideoScripts::TimestampFile.new(options.timestamp_file)
@@ -34,6 +36,6 @@ options.title = timestamp_file.title
 
 metadata_builder = VideoScripts::FfmetadataBuilder.new(clips, options.title)
 
-File.open('FFMETADATAFILE', "w") do |file|
+File.open('FFMETADATAFILE', 'w') do |file|
   file.write(metadata_builder.build)
 end

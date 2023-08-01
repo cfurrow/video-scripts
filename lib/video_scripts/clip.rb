@@ -1,10 +1,11 @@
+# frozen_string_literal: true
+
 module VideoScripts
   class Clip
-    TIME_PATTERN=/(?<hour>\d{1,2}):(?<minute>\d{2}):(?<second>\d{2})/
+    TIME_PATTERN = /(?<hour>\d{1,2}):(?<minute>\d{2}):(?<second>\d{2})/
     attr_reader :file, :start_time, :end_time, :description
     attr_accessor :file, :end_time, :output_dir, :title
-    
-    
+
     def initialize(file, start_time, end_time, description)
       @file = file
       @start_time = start_time
@@ -45,7 +46,8 @@ module VideoScripts
 
     def time_to_ms(time)
       match = TIME_PATTERN.match(time)
-      return nil if match.nil?  
+      return nil if match.nil?
+
       hour = match[:hour].to_i
       minute = match[:minute].to_i
       second = match[:second].to_i
@@ -56,16 +58,16 @@ module VideoScripts
     def input_filename
       File.basename(file, '.*')  # remove extension
     end
-    
+
     def output_file
-      @output_dir = "#{@output_dir}/" if @output_dir && !@output_dir.end_with?("/")
-      preamble = title ? title : input_filename
+      @output_dir = "#{@output_dir}/" if @output_dir && !@output_dir.end_with?('/')
+      preamble = title || input_filename
       "#{@output_dir}#{preamble} - #{description}.clip.mp4"
     end
 
     def end_time_option
-      return "" if end_time.nil?
-      
+      return '' if end_time.nil?
+
       "-to #{end_time}"
     end
   end
