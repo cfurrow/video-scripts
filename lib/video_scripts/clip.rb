@@ -52,7 +52,7 @@ module VideoScripts
       minute = match[:minute].to_i
       second = match[:second].to_i
 
-      hour * 60 * 60 * 1000 + minute * 60 * 1000 + second * 1000
+      (hour * 60 * 60 * 1000) + (minute * 60 * 1000) + (second * 1000)
     end
 
     def input_filename

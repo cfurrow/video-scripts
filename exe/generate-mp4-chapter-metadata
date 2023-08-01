@@ -36,6 +36,4 @@ options.title = timestamp_file.title
 
 metadata_builder = VideoScripts::FfmetadataBuilder.new(clips, options.title)
 
-File.open('FFMETADATAFILE', 'w') do |file|
-  file.write(metadata_builder.build)
-end
+File.write('FFMETADATAFILE', metadata_builder.build)
