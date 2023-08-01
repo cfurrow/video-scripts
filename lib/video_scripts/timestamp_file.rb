@@ -1,6 +1,6 @@
 module VideoScripts
   class TimestampFile
-    TIMESTAMP_LINE = /(?<time>\d{1,2}:\d{2}:\d{2})\s+(?<description>.*?)$/
+    TIMESTAMP_LINE = /(?<time>(\d{1,2}:)?\d{2}:\d{2})\s+(?<description>.*?)$/
 
     attr_reader :clips, :path, :title
 
@@ -31,12 +31,14 @@ module VideoScripts
       @clips
     end
 
+    # Extract the title if it matches "title = <title>"
     def fetch_title(line)
       /^title\s*=\s*(.*)$/.match(line) do |match|
         @title = match[1]
       end
     end
 
+    # Extract clip details from line if it matches "00:00:00 <description>"
     def create_clip_from_line(line)
       line_details = line.match(TIMESTAMP_LINE)
 
