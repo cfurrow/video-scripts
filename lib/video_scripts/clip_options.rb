@@ -27,7 +27,7 @@ module VideoScripts
   end
 
   class ClipOptions
-    attr_accessor :input_file, :output_dir, :timestamp_file, :dry_run, :errors
+    attr_accessor :input_file, :output_dir, :timestamp_file, :dry_run, :errors, :prepend
 
     def initialize
       @errors = ClipOptionErrors.new
@@ -48,6 +48,10 @@ module VideoScripts
 
         opts.on('-d', '--dry_run', "Dry run, don't actually create clips") do
           self.dry_run = true
+        end
+
+        opts.on('-pPREPEND', '--prepend=PREPEND', 'Prepend string to output file names') do |p|
+          self.prepend = p
         end
       end.parse!
 

@@ -16,6 +16,9 @@ clips = timestamp_file.parse!
 
 clips.map do |clip|
   clip.title = timestamp_file.title
+  if options.prepend
+    clip.title = "#{options.prepend}#{clip.title}"
+  end
   clip.file = options.input_file
   clip.output_dir = options.output_dir
 end
